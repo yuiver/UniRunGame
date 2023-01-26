@@ -54,4 +54,18 @@ public static partial class GlobalFnuc
         Scene activeScene_ = SceneManager.GetActiveScene();
         return activeScene_;
     }       // GetActiveScene()
+
+    //! 컴포넌트 가져오는 함수
+    public static T GetComponentMust<T>(this GameObject obj)
+    {
+        T component_ = obj.GetComponent<T>();
+        bool isComponentVaild =
+            ((Component)(component_ as Component)).IsValid();
+
+        GlobalFnuc.Assert(isComponentVaild != false,
+            string.Format("{0}에서 {1}을(를) 찾을 수 없습니다.",
+            obj.name, component_.GetType().Name));
+
+        return component_;
+    }
 }
